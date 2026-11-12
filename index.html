@@ -1,0 +1,285 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Portfolio of Zuriyat Fatima, AI and MLOps engineer intern: edge AI on Raspberry Pi 5 and Hailo-8L, computer vision and ML deployment."><title>Zuriyat Fatima Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: single column, hero with a detection-box motif, stats strip, filterable project cards with real Pi 5 outputs. */
+:root{
+  --bg:#f4f6fa; --surface:#ffffff; --ink:#122042; --muted:#4d5a78; --line:#d5dbe8;
+  --accent:#0a6ea8; --accent-ink:#ffffff; --tag:#e7eefa; --good:#0b7a4b;
+  --f-display:"Space Grotesk","Segoe UI",Arial,sans-serif;
+  --f-body:"Inter","Segoe UI",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1730; --surface:#132244; --ink:#e8edf8; --muted:#a3b0cc; --line:#27395f;
+  --accent:#35c3f2; --accent-ink:#06142b; --tag:#1b2d55; --good:#4fd39b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1730; --surface:#132244; --ink:#e8edf8; --muted:#a3b0cc; --line:#27395f;
+  --accent:#35c3f2; --accent-ink:#06142b; --tag:#1b2d55; --good:#4fd39b; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto}
+header.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+.logo i{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border:2px solid var(--accent);color:var(--accent);font-size:.85rem;border-radius:4px}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;margin-left:18px}
+nav a:hover,nav a:focus-visible{color:var(--accent)}
+.hero{padding:56px 0 44px;display:grid;gap:22px}
+.box{position:relative;display:inline-block;padding:14px 22px 10px;margin-left:2px;border:2px solid var(--accent);justify-self:start;max-width:100%}
+.box:before{content:"engineer";position:absolute;left:-2px;top:-24px;background:var(--accent);color:var(--accent-ink);font:500 .72rem var(--f-mono);padding:2px 8px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(2.2rem,7vw,4.2rem);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lead{font-size:1.15rem;max-width:62ch;color:var(--muted);margin:0}
+.lead b{color:var(--ink);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{font:500 .92rem var(--f-body);padding:10px 18px;border:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:6px;background:var(--surface);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:hover,.btn:focus-visible{border-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:20px 18px 20px 0}
+.stat+.stat{padding-left:18px;border-left:1px solid var(--line)}
+.stat strong{display:block;font:700 2rem var(--f-display);color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:.84rem;color:var(--muted);display:block;margin-top:4px}
+@media(max-width:560px){.stat+.stat{border-left:0;padding-left:0;border-top:1px solid var(--line)}}
+section{padding:56px 0 0}
+h2{font:700 1.7rem var(--f-display);margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 24px;max-width:64ch}
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:36px}
+@media(max-width:800px){.about{grid-template-columns:1fr}}
+.about p{margin:0 0 14px;max-width:62ch}
+.facts{background:var(--surface);border:1px solid var(--line);padding:18px 20px;border-radius:8px;align-self:start}
+.facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:.92rem}
+.facts dt{color:var(--muted)}.facts dd{margin:0;min-width:0}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+.skills h3{font:500 .78rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--tag);color:var(--ink);font-size:.82rem;padding:3px 10px;border-radius:4px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters button{font:500 .85rem var(--f-body);padding:6px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.wide{grid-column:1/-1}
+.shots{display:grid;gap:2px;background:var(--line)}
+.shots.two{grid-template-columns:1fr 1fr}
+.shots img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;background:var(--tag)}
+.shots.one img{aspect-ratio:16/9;max-height:460px}
+.body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.kicker{font:500 .74rem var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.card h3{font:600 1.2rem var(--f-display);margin:0;line-height:1.25}
+.card p{margin:0;font-size:.95rem}
+.card ul{margin:0;padding-left:18px;font-size:.92rem}
+.card li{margin-bottom:4px}
+.note{font-size:.86rem;color:var(--muted);border-left:2px solid var(--line);padding-left:10px}
+.links{margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;font-size:.9rem;padding-top:6px}
+.tl{display:grid;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px 24px}
+.tl .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.tl h3{font:600 1.25rem var(--f-display);margin:0}
+.when{font:400 .85rem var(--f-mono);color:var(--muted)}
+.tl ul{margin:8px 0 0;padding-left:20px;max-width:80ch}.tl li{margin-bottom:8px}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px;display:grid;gap:14px}
+.mail{font:500 1.15rem var(--f-mono);word-break:break-all}
+footer{padding:48px 0 40px;color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head><body><div class="wrap">
+<header class="nav">
+  <a class="logo" href="#top"><i>ZF</i>Zuriyat Fatima</a>
+  <nav aria-label="Sections"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="box"><h1>Zuriyat Fatima</h1></div>
+  <p class="lead"><b>AI / MLOps engineer intern.</b> I train computer vision models, shrink them to run on a Raspberry Pi 5 with a Hailo-8L accelerator, and deploy ML services with Docker, Jenkins and Kubernetes. BS Artificial Intelligence student at COMSATS University Islamabad.</p>
+  <div class="cta">
+    <a class="btn primary" href="#projects">See my projects</a>
+    <a class="btn" href="Zuriyat_Fatima_CV.pdf">View CV (PDF)</a>
+    <a class="btn" href="https://github.com/ZuriyatFatima">GitHub</a>
+    <a class="btn" href="https://www.linkedin.com/in/zuriyat-fatima-643778329/">LinkedIn</a>
+  </div>
+</div>
+
+<div class="stats" aria-label="Key results">
+  <div class="stat"><strong>107 FPS</strong><span>Smoke detector on Raspberry Pi 5 + Hailo-8L, measured with hailortcli</span></div>
+  <div class="stat"><strong>0.832</strong><span>mAP50 for smoke on the D-Fire test split (YOLOv8n)</span></div>
+  <div class="stat"><strong>99%</strong><span>AP50-95 for the door open/closed detector (YOLOv11s)</span></div>
+  <div class="stat"><strong>32,804</strong><span>Training images in the merged smoke dataset</span></div>
+</div>
+
+<section id="about">
+  <div class="about">
+    <div>
+      <h2>About</h2>
+      <p>I'm in my fourth year of a BS in Artificial Intelligence at COMSATS University Islamabad (2023–2027). Most of my work sits where a trained model meets real hardware or a real deployment: quantizing a detector so it fits an edge accelerator, or wiring a model into a pipeline that tests, ships and rolls itself back.</p>
+      <p>In summer 2026 I interned at VC Technologies on a computer vision team. I trained and deployed the smoke detector, the door-monitoring system and the face recognition attendance system described below, all of it solo work.</p>
+      <p>My final year project is an explainable chest X-ray classifier built on a Concept Bottleneck Model.</p>
+    </div>
+    <aside class="facts" aria-label="Quick facts"><dl>
+      <dt>Studying</dt><dd>BS Artificial Intelligence</dd>
+      <dt>University</dt><dd>COMSATS Islamabad</dd>
+      <dt>Based in</dt><dd>Islamabad, Pakistan</dd>
+      <dt>Interested in</dt><dd>Edge AI, MLOps, computer vision</dd>
+      <dt>Status</dt><dd>Open to internships and junior roles</dd>
+    </dl></aside>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <p class="sub">What I have used in the projects below.</p>
+  <div class="skills">
+    <div><h3>Edge AI</h3><div class="chips"><span class="chip">Raspberry Pi 5</span><span class="chip">Hailo-8L</span><span class="chip">Hailo Dataflow Compiler</span><span class="chip">INT8 quantization</span></div></div>
+    <div><h3>Computer vision</h3><div class="chips"><span class="chip">YOLOv8 / YOLO11</span><span class="chip">ByteTrack</span><span class="chip">SCRFD + ArcFace</span><span class="chip">MediaPipe</span><span class="chip">CNN</span></div></div>
+    <div><h3>MLOps &amp; cloud</h3><div class="chips"><span class="chip">Docker</span><span class="chip">Jenkins CI/CD</span><span class="chip">Kubernetes</span><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">AWS</span></div></div>
+    <div><h3>GenAI &amp; backend</h3><div class="chips"><span class="chip">LangChain</span><span class="chip">RAG</span><span class="chip">ChromaDB</span><span class="chip">Flask / FastAPI</span><span class="chip">Streamlit</span><span class="chip">Flutter</span></div></div>
+    <div><h3>Languages &amp; libraries</h3><div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">HuggingFace Transformers</span><span class="chip">Pytest / Selenium</span></div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <p class="sub">Output images below come from the Raspberry Pi 5 running the deployed models.</p>
+  <div class="filters" role="group" aria-label="Filter projects">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="edge" aria-pressed="false">Edge AI</button>
+    <button type="button" data-f="mlops" aria-pressed="false">MLOps</button>
+    <button type="button" data-f="genai" aria-pressed="false">GenAI &amp; apps</button>
+  </div>
+  <div class="grid">
+
+    <article class="card wide" data-cat="edge">
+      <div class="shots one"><img src="smoke.jpg" alt="Wildfire footage with four smoke detections drawn as boxes with confidence scores of 0.90 to 0.93" loading="lazy"></div>
+      <div class="body">
+        <div class="kicker">VC TECH INTERNSHIP · JUL 2026</div>
+        <h3>Smoke detection on Raspberry Pi 5 + Hailo-8L</h3>
+        <p>Trained a YOLOv8n model on merged public datasets (D-Fire and FireAndSmoke), using 32,804 training images, and reached 0.832 mAP50 for smoke on the D-Fire test split. Converted it to Hailo's <code>.hef</code> format with INT8 quantization (1,024-image calibration set) and deployed it on a Raspberry Pi 5, measuring 107 FPS on-device.</p>
+        <p>Validated on unseen 4K smoke videos (99–100% hit rate at a 0.25 confidence threshold) and documented how detection rates change at stricter thresholds.</p>
+        <p class="note">The model also has a fire class. It is weaker than smoke (0.707 mAP50), and I did not get to fine-tune it before the internship ended. A campfire triggers a false positive at 0.52 confidence, which is listed in the README.</p>
+        <div class="chips"><span class="chip">YOLOv8n</span><span class="chip">INT8 quantization</span><span class="chip">Hailo-8L</span><span class="chip">Raspberry Pi 5</span></div>
+        <div class="links"><a href="https://github.com/ZuriyatFatima/fire-smoke-detection-hailo">Code and results on GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="edge">
+      <div class="shots two"><img src="door-open.jpg" alt="Door detector output on the Pi: door_open 0.95" loading="lazy"><img src="door-closed.jpg" alt="Door detector output on the Pi: door_closed 0.93" loading="lazy"></div>
+      <div class="body">
+        <div class="kicker">VC TECH INTERNSHIP · JUN–JUL 2026</div>
+        <h3>Door monitoring: people counting and door state</h3>
+        <ul>
+          <li>People counting with YOLO11n and ByteTrack, counting IN and OUT events across a door line, with a Streamlit dashboard.</li>
+          <li>A track reconciler and a regression baseline: the test video must produce IN=6, OUT=2, 8 events.</li>
+          <li>A separate door open/closed detector (YOLOv11s, 99% AP50-95) compiled to <code>.hef</code> and run on the Hailo-8L.</li>
+        </ul>
+        <div class="chips"><span class="chip">ByteTrack</span><span class="chip">Streamlit</span><span class="chip">Object detection</span></div>
+        <div class="links"><a href="https://github.com/ZuriyatFatima/door-monitoring-CV-pipeline">Counting pipeline</a><a href="https://github.com/ZuriyatFatima/door-detection-hailo">Door-state detector</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="edge">
+      <div class="body">
+        <div class="kicker">VC TECH INTERNSHIP · JUN 2026</div>
+        <h3>Face recognition attendance on Raspberry Pi 5 + Hailo-8L</h3>
+        <p>Built on Hailo's face recognition pipeline: an SCRFD detector, ArcFace MobileFaceNet embeddings and a tracker. I added attendance-style CSV logging that records known and unknown faces, an enrollment dashboard for registering people, and a batch script for processing video.</p>
+        <p class="note">The repository contains no real photos or embeddings. Accuracy and false-match rates are not measured yet, and that is the next step.</p>
+        <div class="chips"><span class="chip">SCRFD</span><span class="chip">ArcFace</span><span class="chip">Hailo pipeline</span></div>
+        <div class="links"><a href="https://github.com/ZuriyatFatima/face-recognition-hailo">Code on GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="card wide" data-cat="mlops">
+      <div class="body">
+        <div class="kicker">COURSE PROJECT · MAY 2026</div>
+        <h3>Self-healing ML deployment with Jenkins and Kubernetes</h3>
+        <p>A DistilBERT sentiment API (Flask) shipped through a six-stage Jenkins pipeline: fetch, build and run, unit tests, Selenium UI tests, build and push to Docker Hub, deploy to Minikube. It runs as blue and green Kubernetes deployments behind one service. If the new version misbehaves, a rollback job patches the service selector back to the stable slot, which is a rule-based fallback image.</p>
+        <p>Monitoring uses a custom Prometheus exporter for prediction confidence, Grafana dashboards, and Alertmanager to trigger the rollback.</p>
+        <div class="chips"><span class="chip">Docker</span><span class="chip">Jenkins</span><span class="chip">Kubernetes</span><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Pytest</span><span class="chip">Selenium</span></div>
+        <div class="links"><a href="https://github.com/ZuriyatFatima/selfhealing-mlops-FA23-BAI-054">Pipeline and manifests on GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="genai">
+      <div class="body">
+        <div class="kicker">SEMESTER PROJECT</div>
+        <h3>FocusQuest StudyLens</h3>
+        <p>A real-time study behaviour analyzer. MediaPipe detects drowsiness, YOLOv8 detects phone use, and a custom CNN reaches 98.5% accuracy. A Flutter dashboard over WebSocket adds gamification and multi-face classroom tracking.</p>
+        <div class="chips"><span class="chip">MediaPipe</span><span class="chip">YOLOv8</span><span class="chip">CNN</span><span class="chip">Flutter</span></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="genai">
+      <div class="body">
+        <div class="kicker">PROJECT</div>
+        <h3>MedLumina: medical explanation platform</h3>
+        <p>A RAG pipeline that takes a symptom, looks it up in OpenFDA, explains it with LangChain and Gemini, checks drug interactions and searches a ChromaDB store. Served with FastAPI.</p>
+        <div class="chips"><span class="chip">LangChain</span><span class="chip">Gemini</span><span class="chip">ChromaDB</span><span class="chip">FastAPI</span></div>
+      </div>
+    </article>
+
+    <article class="card wide" data-cat="genai">
+      <div class="body">
+        <div class="kicker">FINAL YEAR PROJECT · IN PROGRESS</div>
+        <h3>Explainable chest X-ray classification</h3>
+        <p>A Concept Bottleneck Model that predicts clinical concepts before the diagnosis, plus a RAG-based chatbot module, to make chest X-ray predictions easier to explain.</p>
+        <div class="chips"><span class="chip">Concept Bottleneck Models</span><span class="chip">Explainable AI</span><span class="chip">RAG</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+    <div class="tl">
+    <div class="row"><h3>AI Engineer Intern · VC Technologies</h3><span class="when">Jun 2026 – Aug 2026 · Islamabad</span></div>
+    <ul>
+      <li>Trained a smoke detection model, quantized it to INT8 and deployed it on a Raspberry Pi 5 with a Hailo-8L at 107 FPS.</li>
+      <li>Built a door-monitoring system with YOLO11n and ByteTrack counting, a Streamlit dashboard, and a separate on-device door open/closed detector.</li>
+      <li>Built a face recognition attendance system with an enrollment dashboard and known/unknown CSV logging.</li>
+      <li>Applied LangChain and RAG pipelines across internship projects.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="sub">I am looking for internships and junior roles in AI, computer vision and MLOps.</p>
+  <div class="contact">
+    <div class="mail" id="mail">fatimazuriyat380@gmail.com</div>
+    <div class="cta">
+      <button class="btn primary" type="button" id="copy">Copy email</button>
+      <a class="btn" href="mailto:fatimazuriyat380@gmail.com">Open mail app</a>
+      <a class="btn" href="https://www.linkedin.com/in/zuriyat-fatima-643778329/">LinkedIn</a>
+      <a class="btn" href="https://github.com/ZuriyatFatima">GitHub</a>
+    </div>
+    <span id="copied" class="when" role="status"></span>
+  </div>
+</section>
+</main>
+
+<footer><span>© 2026 Zuriyat Fatima</span><span>Islamabad, Pakistan</span></footer>
+</div>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.card');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    var f=b.getAttribute('data-f');
+    cards.forEach(function(c){c.hidden=!(f==='all'||c.getAttribute('data-cat')===f)});
+  })});
+  var copy=document.getElementById('copy'),msg=document.getElementById('copied');
+  copy.addEventListener('click',function(){
+    var t=document.getElementById('mail').textContent;
+    function done(m){msg.textContent=m}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){done('Copied to clipboard')},function(){sel()})
+    }else sel();
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('mail'));
+      var s=getSelection();s.removeAllRanges();s.addRange(r);done('Press Ctrl+C to copy the selected address')}
+  });
+})();
+</script>
+</body></html>
